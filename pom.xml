@@ -15,6 +15,7 @@
         <module>Functionality</module>
         <module>Functionality</module>
         <module>Classloading</module>
+        <module>GC</module>
     </modules>
 
     <dependencyManagement>

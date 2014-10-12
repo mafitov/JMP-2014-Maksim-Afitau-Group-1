@@ -1,0 +1,1 @@
+java -jar -XX:-UseParallelGC -Xms3m -Xmx12m -XX:MaxNewSize=1m -XX:PermSize=20m -XX:MaxPermSize=20m target/GC-1.0-SNAPSHOT.jar
