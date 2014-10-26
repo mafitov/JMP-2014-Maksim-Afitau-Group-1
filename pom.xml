@@ -10,12 +10,10 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>Functionality</module>
-        <module>Classloading</module>
-        <module>Functionality</module>
-        <module>Functionality</module>
         <module>Classloading</module>
         <module>GC</module>
+        <module>MemoryManagement</module>
+        <module>concurrency-data-service</module>
     </modules>
 
     <dependencyManagement>
