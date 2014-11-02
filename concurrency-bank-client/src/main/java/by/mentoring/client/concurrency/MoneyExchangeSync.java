@@ -1,31 +1,23 @@
-package client.concurrency;
+package by.mentoring.client.concurrency;
 
 import by.mentoring.model.Account;
-import by.mentoring.service.AccountService;
 import org.apache.log4j.Logger;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class MoneyExchangeFileSync implements Runnable {
+public class MoneyExchangeSync implements Runnable {
 
-  private static final Logger log = Logger.getLogger(MoneyExchangeFileSync.class);
-
-  private final AccountService accountService = new AccountService();
+  private static final Logger log = Logger.getLogger(MoneyExchangeSync.class);
 
   private final List<Account> accounts;
 
   private final Integer NUMBER_OF_OPERATIONS = 1000;
   private final Double MAX_AMOUNT_TO_TRANSFER = 100d;
 
-  public MoneyExchangeFileSync() throws IOException {
-    accounts = accountService.getAll();
-  }
-
-  public MoneyExchangeFileSync(List<Account> accounts) {
+  public MoneyExchangeSync(List<Account> accounts) {
     this.accounts = accounts;
   }
 
@@ -34,16 +26,12 @@ public class MoneyExchangeFileSync implements Runnable {
 
     for(int i = 0;  i  < NUMBER_OF_OPERATIONS; ++i) {
 
-      try {
-        checkAccountsAndTransfer();
-      } catch (IOException e) {
-        log.error("Error while wrinting data to file");
-      }
+      checkAccountsAndTransfer();
 
     }
   }
 
-  private synchronized void checkAccountsAndTransfer() throws IOException {
+  private synchronized void checkAccountsAndTransfer() {
 
     int accountIdFrom = ThreadLocalRandom.current().nextInt(0, accounts.size() - 1);
     int accountIdTo = ThreadLocalRandom.current().nextInt(0, accounts.size() - 1);
@@ -70,16 +58,13 @@ public class MoneyExchangeFileSync implements Runnable {
 
   }
 
-  private synchronized void transferAmount(BigDecimal amount, Account from, Account to) throws IOException {
+  private synchronized void transferAmount(BigDecimal amount, Account from, Account to) {
 
     BigDecimal prevAmountFrom = from.getAmount();
     BigDecimal prevAmountTo = to.getAmount();
 
     from.setAmount(prevAmountFrom.subtract(amount).setScale(2, RoundingMode.CEILING));
     to.setAmount(prevAmountTo.add(amount).setScale(2, RoundingMode.CEILING));
-
-    accountService.saveOrUpdate(from);
-    accountService.saveOrUpdate(to);
   }
 
 }

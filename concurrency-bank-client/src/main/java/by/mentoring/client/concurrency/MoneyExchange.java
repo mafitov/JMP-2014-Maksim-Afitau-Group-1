@@ -1,4 +1,4 @@
-package client.concurrency;
+package by.mentoring.client.concurrency;
 
 import by.mentoring.model.Account;
 import org.apache.log4j.Logger;

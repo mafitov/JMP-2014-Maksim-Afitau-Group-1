@@ -1,8 +1,8 @@
-package client;
+package by.mentoring.client;
 
 import by.mentoring.model.Currency;
 import by.mentoring.service.CurrencyServie;
-import client.concurrency.*;
+import by.mentoring.client.concurrency.*;
 import org.apache.log4j.Logger;
 
 import java.io.BufferedReader;

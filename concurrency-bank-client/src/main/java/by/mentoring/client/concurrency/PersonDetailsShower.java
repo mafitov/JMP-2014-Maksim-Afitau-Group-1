@@ -1,6 +1,6 @@
-package client.concurrency;
+package by.mentoring.client.concurrency;
 
-import client.flows.PersonFlows;
+import by.mentoring.client.flows.PersonFlows;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;

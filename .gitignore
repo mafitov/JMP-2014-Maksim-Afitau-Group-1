@@ -6,3 +6,9 @@
 
 /GC/target/
 
+*.iml
+
+/concurrency-bank-client/target
+/concurrency-data-service/target
+
+client

@@ -1,10 +1,10 @@
-package client.flows;
+package by.mentoring.client.flows;
 
+import by.mentoring.client.concurrency.MoneyExchange;
+import by.mentoring.client.concurrency.MoneyExchangeFileSync;
+import by.mentoring.client.concurrency.MoneyExchangeSync;
 import by.mentoring.model.Account;
 import by.mentoring.service.AccountService;
-import client.concurrency.MoneyExchange;
-import client.concurrency.MoneyExchangeFileSync;
-import client.concurrency.MoneyExchangeSync;
 import com.google.common.collect.Lists;
 import org.apache.log4j.Logger;
 

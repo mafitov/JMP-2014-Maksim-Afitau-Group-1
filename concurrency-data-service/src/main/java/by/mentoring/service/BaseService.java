@@ -16,10 +16,11 @@ public abstract class BaseService<T extends  BaseStoreObject> {
 
     protected String pathToStorageFile;
     protected File storageFile;
-    protected ObjectMapper mapper = new ObjectMapper();
+    protected ObjectMapper mapper;
 
     public BaseService(String pathToStorageFile) {
-        this.pathToStorageFile = pathToStorageFile;
+        pathToStorageFile = pathToStorageFile;
+        mapper = new ObjectMapper();
         checkFileExists(pathToStorageFile);
     }
 
@@ -42,7 +43,6 @@ public abstract class BaseService<T extends  BaseStoreObject> {
         }
 
         mapper.writeValue(storageFile, allObjects);
-        System.out.println(objId);
         return get(objId);
     }
 

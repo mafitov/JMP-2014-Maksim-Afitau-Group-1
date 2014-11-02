@@ -1,4 +1,4 @@
-package client.flows;
+package by.mentoring.client.flows;
 
 import by.mentoring.model.Account;
 import by.mentoring.model.Currency;
@@ -16,8 +16,13 @@ public class AccountFlows {
 
   private static final Logger log = Logger.getLogger(AccountFlows.class);
 
-  private final AccountService accountService = new AccountService();
-  private final CurrencyServie currencyService = new CurrencyServie();
+  private AccountService accountService;
+  private CurrencyServie currencyService;
+
+    public AccountFlows() {
+        accountService = new AccountService();
+        currencyService = new CurrencyServie();
+    }
 
   public void createAccount() throws IOException {
 
