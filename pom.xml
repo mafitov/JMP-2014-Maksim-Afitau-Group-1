@@ -14,6 +14,7 @@
         <module>GC</module>
         <module>MemoryManagement</module>
         <module>concurrency-data-service</module>
+        <module>concurrency-bank-client</module>
     </modules>
 
     <dependencyManagement>

@@ -1,8 +1,12 @@
 package by.mentoring.model;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 public class Currency extends BaseStoreObject {
 
+    @JsonProperty
     private String name;
+    @JsonProperty
     private Double multiplier;
 
     public Currency() {}

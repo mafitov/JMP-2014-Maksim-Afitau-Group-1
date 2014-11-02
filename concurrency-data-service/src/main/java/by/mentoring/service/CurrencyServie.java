@@ -14,6 +14,6 @@ public class CurrencyServie extends BaseService<Currency> {
 
     @Override
     protected JavaType getValueType() {
-        return mapper.getTypeFactory().constructParametricType(List.class, Account.class);
+        return mapper.getTypeFactory().constructParametricType(List.class, Currency.class);
     }
 }
