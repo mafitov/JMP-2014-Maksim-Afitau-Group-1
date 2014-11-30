@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   template="/WEB-INF/templates/default.xhtml">
+   <ui:define name="content">
+
+      <h:form>
+        <h1>Please make your choice!</h1>
+  
+        <ul>
+          <li><h:link value="Accounts" outcome="accounts" /></li>
+        </ul>
+
+        <ul>
+           <ui:repeat var="bank" value="#{banks}" varStatus="status">
+ 
+           <li><h:link value="#{bank.name}"  outcome="bank" >
+                 <f:param name="id" value="#{bank.id}" />
+               </h:link></li>
+ 
+           </ui:repeat>
+        </ul>
+      </h:form>
+
+   </ui:define>
+
+</ui:composition>

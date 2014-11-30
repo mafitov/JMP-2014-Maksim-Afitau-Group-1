@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   template="/WEB-INF/templates/default.xhtml">
+   <ui:define name="content">
+   
+      <f:event type="preRenderView" listener="#{accountCrudService.preRender}" />
+
+      <h:form id="new-account">
+          <h2>Account information</h2>
+
+          <h:inputHidden value="#{accountCrudService.currentAccountId}" id="id" />
+          <f:viewParam name="id" value="#{accountCrudService.currentAccountId}"></f:viewParam>
+          <f:metadata>
+              <f:viewParam name="id" value="#{accountCrudService.currentAccountId}" />
+          </f:metadata>
+
+          <div>
+            <h:outputLabel for="acc-number" value="Account number:" />
+            <h:inputText id="acc-number" value="#{accountCrudService.currentAccount.accountNumber}" />
+            <h:message for="acc-number" errorClass="invalid" />
+          </div>
+
+          <div>
+            <h:outputLabel for="firstname" value="First name:" />
+            <h:inputText id="firstname" value="#{accountCrudService.currentAccount.person.firstName}" />
+            <h:message for="firstname" errorClass="invalid" />
+          </div>
+
+          <div>
+            <h:outputLabel for="lastname" value="Last name:" />
+            <h:inputText id="lastname" value="#{accountCrudService.currentAccount.person.lastName}" />
+            <h:message for="lastname" errorClass="invalid" />
+          </div>
+
+          <div>
+            <h:outputLabel for="phone-number" value="Phone number:" />
+            <h:inputText id="phone-number" value="#{accountCrudService.currentAccount.person.phoneNumber}" />
+            <h:message for="phone-number" errorClass="invalid" />
+          </div>
+
+          <div>
+            <h:outputLabel for="email" value="Email:" />
+            <h:inputText id="email" value="#{accountCrudService.currentAccount.person.email}" />
+            <h:message for="email" errorClass="invalid" />
+          </div>
+
+          <div>
+            <h:outputLabel for="amount" value="Amount:" />
+            <h:inputText id="amount" value="#{accountCrudService.currentAccount.amount}"  data-constraints = '@Digits(integer=12, fraction=10)' />
+            <h:message for="amount" errorClass="invalid" />
+          </div>
+
+          <div>
+            <h:outputLabel for="currency" value="Currency:" />
+              <h:selectOneMenu id="currency"  value="#{accountCrudService.currentAccount.currency}" converter="#{currencyConverter}">
+                   <f:selectItems value="#{allCurrencies}" var="currency" itemLabel="#{currency.name}" itemValue="#{currency}"/>
+            </h:selectOneMenu>
+            <h:message for="currency" errorClass="invalid" />
+          </div>
+          
+          <div>
+              <h:outputLabel for="bank" value="Bank:" />
+              <h:column>#{accountCrudService.currentAccount.bank.name}</h:column>
+          </div>
+
+         <p>
+            <h:commandButton id="create-account-btn"
+               action="#{accountCrudService.updateCurrentAccount(accountCrudService.currentAccount)}" value="Update" />
+            <h:outputText value=" Account updated!"
+               rendered="#{facesContext.postback and empty facesContext.messageList}"
+               style="color: green;" />
+         </p>
+      </h:form>
+      <h:outputScript name="js/jquery.js" />
+      <h:outputScript name="js/helper.js" />
+    </ui:define>
+
+</ui:composition>
+
+
+

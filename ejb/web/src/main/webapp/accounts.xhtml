@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   template="/WEB-INF/templates/default.xhtml">
+   <ui:define name="content">
+
+      <div id="modal-create">
+      <h:form id="new-account">
+          <h2>Create new account</h2>
+
+          <div>
+            <h:outputLabel for="acc-number" value="Account number:" />
+            <h:inputText id="acc-number" value="#{newAccount.accountNumber}" />
+            <h:message for="acc-number" errorClass="invalid" />
+          </div>
+
+          <div>
+            <h:outputLabel for="firstname" value="First name:" />
+            <h:inputText id="firstname" value="#{newPerson.firstName}" />
+            <h:message for="firstname" errorClass="invalid" />
+          </div>
+
+          <div>
+            <h:outputLabel for="lastname" value="Last name:" />
+            <h:inputText id="lastname" value="#{newPerson.lastName}" />
+            <h:message for="lastname" errorClass="invalid" />
+          </div>
+
+          <div>
+            <h:outputLabel for="phone-number" value="Phone number:" />
+            <h:inputText id="phone-number" value="#{newPerson.phoneNumber}" />
+            <h:message for="phone-number" errorClass="invalid" />
+          </div>
+
+          <div>
+            <h:outputLabel for="email" value="Email:" />
+            <h:inputText id="email" value="#{newPerson.email}" />
+            <h:message for="email" errorClass="invalid" />
+          </div>
+
+          <div>
+            <h:outputLabel for="amount" value="Amount:" />
+            <h:inputText id="amount" value="#{newAccount.amount}" />
+            <h:message for="amount" errorClass="invalid" />
+          </div>
+          
+          <div>
+            <h:outputLabel for="currency" value="Currency:" />
+              <h:selectOneMenu id="currency"  value="#{newAccount.currency}" converter="#{currencyConverter}" >
+                   <f:selectItems value="#{allCurrencies}" var="currency" itemLabel="#{currency.name}" itemValue="#{currency}"/>
+            </h:selectOneMenu>
+            <h:message for="currency" errorClass="invalid" />
+          </div>
+
+          <div>
+            <h:outputLabel for="bank" value="Bank:" />
+              <h:selectOneMenu id="bank" value="#{accountService.selectedBankId}" >
+                   <f:selectItems value="#{banks}" var="bank" itemLabel="#{bank.name}" itemValue="#{bank.id}"/>
+              </h:selectOneMenu>
+            <h:message for="bank" errorClass="invalid" />
+          </div>
+
+         <p>
+            <h:commandButton id="create-account-btn"
+               action="#{accountService.createNewAccount}" value="Create" />
+            <h:outputText value=" Account created!"
+               rendered="#{facesContext.postback and empty facesContext.messageList}"
+               style="color: green;" />
+         </p>
+      </h:form>
+      </div>
+      
+      <h2>Accounts</h2>
+      <h:panelGroup rendered="#{empty accounts}">
+         <em>Account list is empty.</em>
+      </h:panelGroup>
+      <h:dataTable var="account" value="#{accounts}"
+         rendered="#{not empty accounts}">
+         <h:column>
+            <f:facet name="header">Account number</f:facet>
+              <h:link value="#{account.accountNumber}"  outcome="account" ><f:param name="id" value="#{account.id}" /></h:link>
+            </h:column>
+         <h:column>
+            <f:facet name="header">First name</f:facet>
+                #{account.person.firstName}
+            </h:column>
+         <h:column>
+            <f:facet name="header">Last name</f:facet>
+                #{account.person.lastName}
+            </h:column>
+         <h:column>
+            <f:facet name="header">Phone number</f:facet>
+                #{account.person.phoneNumber}
+         </h:column>
+         <h:column>
+            <f:facet name="header">Email</f:facet>
+                #{account.person.email}
+         </h:column>
+
+      </h:dataTable>
+
+      <h:outputScript name="js/jquery.js" />
+      <h:outputScript name="js/jquery.easyModal.js" />
+    </ui:define>
+</ui:composition>

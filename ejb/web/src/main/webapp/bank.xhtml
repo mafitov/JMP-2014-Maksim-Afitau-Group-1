@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   template="/WEB-INF/templates/default.xhtml">
+   <ui:define name="content">
+
+      <f:event type="preRenderView" listener="#{bankService.preRender}" />
+      
+      <h2> #{bankService.currentBank.name} accounts</h2>
+      <h:panelGroup rendered="#{empty bankService.currentBank.accounts}">
+         <em>Account list is empty.</em>
+      </h:panelGroup>
+      <h:dataTable var="account" value="#{bankService.currentBank.accounts}"
+         rendered="#{not empty accounts}">
+         <h:column>
+            <f:facet name="header">Account number</f:facet>
+                <h:link value="#{account.accountNumber}"  outcome="account" ><f:param name="id" value="#{account.id}" /></h:link>
+            </h:column>
+         <h:column>
+            <f:facet name="header">First name</f:facet>
+                #{account.person.firstName}
+            </h:column>
+         <h:column>
+            <f:facet name="header">Last name</f:facet>
+                #{account.person.lastName}
+            </h:column>
+         <h:column>
+            <f:facet name="header">Phone number</f:facet>
+                #{account.person.phoneNumber}
+         </h:column>
+         <h:column>
+            <f:facet name="header">Email</f:facet>
+                #{account.person.email}
+         </h:column>
+         <h:column>
+            <f:facet name="header">Amount</f:facet>
+                #{account.amount} #{account.currency.name}
+         </h:column>
+
+      </h:dataTable>
+
+    </ui:define>
+</ui:composition>
