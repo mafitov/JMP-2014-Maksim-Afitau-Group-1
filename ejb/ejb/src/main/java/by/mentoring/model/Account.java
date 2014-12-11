@@ -1,157 +1,67 @@
 package by.mentoring.model;
 
-import java.io.Serializable;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
-
-import org.hibernate.validator.constraints.NotEmpty;
-
 @Entity
-@XmlRootElement
-@Table
-public class Account implements Serializable {
+public class Account extends BaseStoreObject {
 
-  private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Integer id;
+    @Basic
+    private Integer currencyId;
+    @Basic
+    private BigDecimal amount;
 
-  @Id
-  @GeneratedValue
-  private Long id;
+    public Account() {}
 
-  @NotNull
-  @NotEmpty
-  @Column(name = "account_number")
-  private String accountNumber;
+    public Account(Integer id, Integer currencyId, BigDecimal amount) {
+        super(id);
 
-  @OneToOne(cascade=CascadeType.ALL)
-  @JoinColumn(name="FK_person_id")
-  private Person person;
+        this.currencyId = currencyId;
+        this.amount = amount;
+    }
 
-  @ManyToOne
-  @JoinColumn(name="bank_id")
-  private Bank bank;
+    public Account(Account account) {
+        super(account.id);
 
-  @NotNull
-  @Digits(integer=12,fraction=10)
-  private BigDecimal amount;
+        this.currencyId = account.currencyId;
+        this.amount = account.amount;
+    }
 
-  @NotNull
-  @ManyToOne
-  @JoinColumn(name="currency_id")
-  private Currency currency;
+    public Account(Integer currencyId, BigDecimal amount) {
+        this.currencyId = currencyId;
+        this.amount = amount;
+    }
 
-  public String getAccountNumber() {
-    return accountNumber;
-  }
+    public Integer getCurrencyId() {
+        return currencyId;
+    }
 
-  public void setAccountNumber(String accountNumber) {
-    this.accountNumber = accountNumber;
-  }
+    public void setCurrencyId(Integer currencyId) {
+        this.currencyId = currencyId;
+    }
 
-  public Person getPerson() {
-    return person;
-  }
+    public BigDecimal getAmount() {
+        return amount;
+    }
 
-  public void setPerson(Person person) {
-    this.person = person;
-  }
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
 
-  public Long getId() {
-    return id;
-  }
+    public Integer getId() {
+        return id;
+    }
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-  public Bank getBank() {
-    return bank;
-  }
-
-  public void setBank(Bank bank) {
-    this.bank = bank;
-  }
-
-  public BigDecimal getAmount() {
-    return amount;
-  }
-
-  public void setAmount(BigDecimal amount) {
-    this.amount = amount;
-  }
-
-  public Currency getCurrency() {
-    return currency;
-  }
-
-  public void setCurrency(Currency currency) {
-    this.currency = currency;
-  }
-
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result
-        + ((accountNumber == null) ? 0 : accountNumber.hashCode());
-    result = prime * result + ((amount == null) ? 0 : amount.hashCode());
-    result = prime * result + ((bank == null) ? 0 : bank.hashCode());
-    result = prime * result + ((id == null) ? 0 : id.hashCode());
-    return result;
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
-    Account other = (Account) obj;
-    if (accountNumber == null) {
-      if (other.accountNumber != null)
-        return false;
-    } else if (!accountNumber.equals(other.accountNumber))
-      return false;
-    if (amount == null) {
-      if (other.amount != null)
-        return false;
-    } else if (!amount.equals(other.amount))
-      return false;
-    if (bank == null) {
-      if (other.bank != null)
-        return false;
-    } else if (!bank.equals(other.bank))
-      return false;
-    if (currency == null) {
-      if (other.currency != null)
-        return false;
-    } else if (!currency.equals(other.currency))
-      return false;
-    if (id == null) {
-      if (other.id != null)
-        return false;
-    } else if (!id.equals(other.id))
-      return false;
-    if (person == null) {
-      if (other.person != null)
-        return false;
-    } else if (!person.equals(other.person))
-      return false;
-    return true;
-  }
-
+    @Override
+    public String toString() {
+        return  new StringBuilder().append(id).append(";").append(currencyId).append(";").append(amount).toString();
+    }
 
 }
